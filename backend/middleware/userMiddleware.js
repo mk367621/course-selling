@@ -11,7 +11,7 @@ export async function userMiddleware(req, res, next) {
   try {
     const decoded = jwt.verify(token, USER_JWT);
 
-    req.adminId = decoded.id;
+    req.userId = decoded.id;
 
     next();
   } catch (err) {

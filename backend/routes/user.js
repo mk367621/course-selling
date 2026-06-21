@@ -41,7 +41,7 @@ userRoute.post("/signin", async function (req, res) {
     }
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
-      return res.status().json({
+      return res.status(403).json({
         message: "Invalid credentials..",
       });
     }

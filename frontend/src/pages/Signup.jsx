@@ -1,7 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Signup() {
-  return <div>Signup page</div>;
+  return (
+    <div>
+      <h1>Signup page</h1>
+      <Link to="/login">Go to login</Link>
+    </div>
+  );
 }
 
 export default Signup;
