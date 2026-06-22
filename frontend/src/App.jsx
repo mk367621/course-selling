@@ -21,7 +21,7 @@ function App() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
   return (
-    <>
+    <div className="min-h-screen bg-slate-50 text-slate-900">
       {isAdminRoute ? <AdminNavbar /> : <Navbar />}
       <Routes>
         <Route path="/" element={<Login />} />
@@ -92,7 +92,7 @@ function App() {
           }
         />
       </Routes>
-    </>
+    </div>
   );
 }
 

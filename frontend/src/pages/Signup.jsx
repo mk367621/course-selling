@@ -28,11 +28,19 @@ function Signup() {
   }
   return (
     <div className=" flex  min-h-screen justify-center items-center">
-      <div className="border p-6 rounded-lg shadow-md flex flex-col gap-8 w-96">
-        <h1 className="text-2xl font-bold text-center">Signup</h1>
+      <div className="bg-white border border-slate-200 p-8 rounded-2xl shadow-lg flex flex-col gap-6 w-105">
+        <>
+          <h1 className="text-3xl font-semibold text-center text-slate-900">
+            Create Account
+          </h1>
+
+          <p className="text-center text-slate-500 text-sm">
+            Join CourseHub and start learning today
+          </p>
+        </>
 
         <input
-          className="border p-2 rounded-md"
+          className="w-full border border-slate-300 bg-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
           value={email}
           type="email"
           placeholder="Enter email"
@@ -40,19 +48,19 @@ function Signup() {
         />
 
         <input
-          className="border p-2 rounded-md"
+          className="w-full border border-slate-300 bg-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
           value={password}
           type="password"
           placeholder="Enter password"
           onChange={(e) => setPassword(e.target.value)}
         />
         <button
-          className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+          className="w-full bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 transition-all duration-200"
           onClick={handleSignup}
         >
           Sign up
         </button>
-        <p className="text-center text-sm">{message}</p>
+        <p className="text-center text-sm text-slate-500">{message}</p>
       </div>
     </div>
   );
