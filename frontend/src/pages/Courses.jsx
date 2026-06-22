@@ -59,6 +59,12 @@ function Courses() {
       )
       .then((response) => {
         console.log(response.data);
+
+        const purchasedCourse = courses.find(
+          (course) => course._id === courseId,
+        );
+
+        setPurchasedCourses([...purchasedCourses, purchasedCourse]);
       })
       .catch((err) => {
         console.log(err.response.data);
