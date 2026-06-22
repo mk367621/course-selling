@@ -17,6 +17,7 @@ function App() {
         <Route path="/courses" element={<Courses />} />
         <Route path="/purchases" element={<Purchases />} />
       </Routes>
+      <h1 className="text-4xl font-bold text-center mt-10">Tailwind Working</h1>
     </>
   );
 }
