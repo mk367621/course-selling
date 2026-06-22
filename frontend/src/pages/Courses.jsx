@@ -66,29 +66,44 @@ function Courses() {
   }
 
   return (
-    <div>
-      <h1>Courses</h1>
+    <div className="p-6">
+      <h1 className="text-3xl font-bold mb-6">Courses</h1>
 
-      {courses.map((course) => {
-        const isPurchased = purchasedCourses.some(
-          (purchasedCourse) => purchasedCourse._id === course._id,
-        );
+      <div className="grid grid-cols-2 gap-6">
+        {courses.map((course) => {
+          const isPurchased = purchasedCourses.some(
+            (purchasedCourse) => purchasedCourse._id === course._id,
+          );
 
-        console.log(course.title, isPurchased);
+          console.log(course.title, isPurchased);
 
-        return (
-          <div key={course._id}>
-            <h3>{course.title}</h3>
-            <p>Price: {course.price}</p>
+          return (
+            <div
+              className="border rounded-lg shadow-md p-4 hover:shadow-lg transition "
+              key={course._id}
+            >
+              <h3 className="text-xl font-semibold">{course.title}</h3>
+              <p className="text-gray-600">Price: ₹{course.price}</p>
 
-            {isPurchased ? (
-              <button disabled>Purchased</button>
-            ) : (
-              <button onClick={() => handlePurchase(course._id)}>Buy</button>
-            )}
-          </div>
-        );
-      })}
+              {isPurchased ? (
+                <button
+                  className="bg-green-500 text-white px-3 py-2 rounded-md mt-2"
+                  disabled
+                >
+                  Purchased
+                </button>
+              ) : (
+                <button
+                  className="bg-blue-500 text-white px-3 py-2 mt-2 rounded-md cursor-pointer hover:bg-blue-600"
+                  onClick={() => handlePurchase(course._id)}
+                >
+                  Buy
+                </button>
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
