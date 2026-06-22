@@ -29,25 +29,32 @@ function Login() {
       });
   }
   return (
-    <div>
-      <h1>Login</h1>
-      <input
-        value={email}
-        type="email"
-        placeholder="Enter email"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <br />
-      <br />
-      <input
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        type="password"
-        placeholder="Enter password"
-      />
-      <br />
-      <br />
-      <button onClick={handleLogin}>Login</button>
+    <div className=" flex  min-h-screen justify-center items-center">
+      <div className="border p-6 rounded-lg shadow-md flex flex-col gap-8 w-96">
+        <h1 className="text-2xl font-bold text-center">Login</h1>
+        <input
+          className="border p-2 rounded-md"
+          value={email}
+          type="email"
+          placeholder="Enter email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <input
+          className="border p-2 rounded-md"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+          placeholder="Enter password"
+        />
+
+        <button
+          className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+          onClick={handleLogin}
+        >
+          Login
+        </button>
+      </div>
     </div>
   );
 }
