@@ -28,14 +28,25 @@ function Purchases() {
   }, []);
 
   return (
-    <div>
-      <h1>Purchased courses</h1>
-      {courses.map((course) => (
-        <div key={course._id}>
-          <h3>{course.title}</h3>
-          <p>Price : {course.price}</p>
-        </div>
-      ))}
+    <div className="p-6">
+      <h1 className="text-3xl font-bold mb-6">Purchased courses</h1>
+      <div className="grid grid-cols-2 gap-6">
+        {courses.map((course) => (
+          <div
+            className="border rounded-lg shadow-md p-4 hover:shadow-lg transition"
+            key={course._id}
+          >
+            <h3 className="text-xl font-semibold">{course.title}</h3>
+            <p className="text-gray-600">Price : ₹{course.price}</p>
+            <button
+              disabled
+              className="bg-green-500 text-white px-3 py-2 rounded-md mt-2"
+            >
+              Purchased
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
