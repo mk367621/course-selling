@@ -118,5 +118,14 @@ userRoute.get("/purchases", userMiddleware, async function (req, res) {
     });
   }
 });
+userRoute.get("/courses", async function (req, res) {
+  const courses = await courseModel.find({});
+  console.log("GET /courses route hit");
+  console.log(courses);
+
+  res.json({
+    courses,
+  });
+});
 
 export default userRoute;

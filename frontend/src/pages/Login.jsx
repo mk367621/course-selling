@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   function handleLogin() {
     console.log("Button is clicked");
 
@@ -21,6 +23,7 @@ function Login() {
         console.log(response.data);
 
         localStorage.setItem("token", response.data.token);
+        navigate("/courses");
 
         console.log("Token Saved");
       });
