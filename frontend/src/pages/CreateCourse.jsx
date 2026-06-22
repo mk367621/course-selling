@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function CreateCourse() {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
+  const navigate = useNavigate();
   function handleCreateCourse() {
     const token = localStorage.getItem("adminToken");
     axios
@@ -21,6 +23,7 @@ function CreateCourse() {
       )
       .then((response) => {
         console.log(response.data);
+        navigate("/admin/courses");
       })
       .catch((err) => {
         console.log(err.response.data);
