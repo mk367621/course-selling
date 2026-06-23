@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Toast from "../components/Toast";
+import PrimaryButton from "../components/PrimaryButton";
+
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -71,12 +73,9 @@ function Login() {
           placeholder="Enter password"
         />
 
-        <button
-          className="w-full bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 transition-all duration-200"
-          onClick={handleLogin}
-        >
-          Login
-        </button>
+        
+
+        <PrimaryButton onClick={handleLogin}>Login</PrimaryButton>
         {toast && <Toast message={toast} type={toastType} />}
       </div>
     </div>

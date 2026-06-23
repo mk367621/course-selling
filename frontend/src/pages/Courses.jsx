@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
+import PrimaryButton from "../components/PrimaryButton";
 
 function Courses() {
   const [courses, setCourses] = useState([]);
@@ -77,10 +78,15 @@ function Courses() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-10">
-      <h1 className="text-4xl font-bold text-slate-900 mb-2">Courses</h1>
-      <p className="text-slate-600 mb-10">
-        Explore and purchase courses to grow your skills.
-      </p>
+      <div className="mb-12">
+        <h1 className="text-5xl font-bold tracking-tight text-slate-900">
+          Courses
+        </h1>
+
+        <p className="mt-3 text-lg text-slate-600">
+          Explore and purchase courses to grow your skills.
+        </p>
+      </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {loading ? (
@@ -95,33 +101,50 @@ function Courses() {
 
             return (
               <div
-                className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                className="bg-white border border-slate-100 rounded-3xl p-7 shadow-sm hover:shadow-2xl hover:border-indigo-100 hover:-translate-y-2 transition-all duration-300"
                 key={course._id}
               >
-                <div className="h-44 rounded-xl bg-slate-100 mb-5 flex items-center justify-center border border-slate-200">
-                  <span className="text-slate-400 text-sm font-medium">
-                    Course Thumbnail
-                  </span>
+                <div className="group h-52 rounded-xl mb-5 overflow-hidden relative bg-gradient-to-br from-indigo-600 via-indigo-500 to-purple-600">
+                  <div className="absolute inset-0 bg-black/10 group-hover:scale-110 transition-transform duration-500"></div>
+
+                  <div className="relative h-full flex flex-col justify-end p-5">
+                    <span className="w-fit px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs font-medium mb-3">
+                      Development
+                    </span>
+
+                    <h3 className="text-white text-2xl font-bold line-clamp-2">
+                      {course.title}
+                    </h3>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-3">
-                  {course.title}
-                </h3>
-                <p className="text-slate-600 mb-4">Price: ₹{course.price}</p>
+
+                <div className="flex justify-between items-center mb-5">
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-slate-400">
+                      Price
+                    </p>
+
+                    <p className="text-3xl font-bold text-slate-900">
+                      ₹{course.price}
+                    </p>
+                  </div>
+
+                  <div className="text-right">
+                    <p className="text-xs text-slate-400">Lifetime Access</p>
+                  </div>
+                </div>
 
                 {isPurchased ? (
                   <button
-                    className="w-full bg-emerald-500 text-white py-3 rounded-xl font-medium cursor-not-allowed"
+                    className="w-full border border-slate-200 bg-slate-50 text-slate-700 py-3 rounded-xl font-medium cursor-not-allowed"
                     disabled
                   >
                     Purchased
                   </button>
                 ) : (
-                  <button
-                    className="w-full bg-indigo-600 text-white py-3 rounded-xl font-medium hover:bg-indigo-700 transition-all duration-200"
-                    onClick={() => handlePurchase(course._id)}
-                  >
-                    Buy
-                  </button>
+                  <PrimaryButton onClick={() => handlePurchase(course._id)}>
+                    Buy Course
+                  </PrimaryButton>
                 )}
               </div>
             );

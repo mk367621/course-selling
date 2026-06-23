@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import PrimaryButton from "../components/PrimaryButton";
+
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -54,12 +56,9 @@ function Signup() {
           placeholder="Enter password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button
-          className="w-full bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 transition-all duration-200"
-          onClick={handleSignup}
-        >
-          Sign up
-        </button>
+
+        
+        <PrimaryButton onClick={handleSignup}>Create Account</PrimaryButton>
         <p className="text-center text-sm text-slate-500">{message}</p>
       </div>
     </div>

@@ -63,12 +63,20 @@ adminRoute.post("/signin", async (req, res) => {
 
 adminRoute.post("/course", adminMiddleware, async function (req, res) {
   const { title, price } = req.body;
+
+  if (!title?.trim() || !price) {
+    return res.status(400).json({
+      message: "Please fill all fields",
+    });
+  }
+
   try {
     const course = await courseModel.create({
       title,
       price,
       creatorId: req.adminId,
     });
+
     return res.status(200).json({
       message: "Course created successfully...",
       courseid: course._id,

@@ -9,13 +9,19 @@ function Navbar() {
     navigate("/login");
   }
   return (
-    <nav className="flex justify-between items-center px-8 py-4 bg-white border-b border-slate-200">
-      <div className="flex items-center gap-2">
-        <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold">
-          C
+    <nav className="sticky top-0 z-50 flex justify-between items-center px-10 py-4 bg-white/80 backdrop-blur-md border-b border-slate-200">
+      <div className="flex items-center gap-3 cursor-pointer">
+        <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center shadow-sm">
+          <span className="text-white font-bold text-sm">C</span>
         </div>
 
-        <h1 className="text-slate-900 text-2xl font-semibold">CourseHub</h1>
+        <div>
+          <h1 className="text-slate-900 font-bold text-xl leading-none">
+            CourseHub
+          </h1>
+
+          <p className="text-xs text-slate-500 mt-0.5">Learn • Build • Grow</p>
+        </div>
       </div>
       <div className="flex gap-8 items-center">
         {!token && (
@@ -40,7 +46,7 @@ function Navbar() {
           to="/courses"
           className={({ isActive }) =>
             isActive
-              ? "text-indigo-600 font-medium"
+              ? "text-indigo-600 font-semibold"
               : "text-slate-600 hover:text-slate-900 transition-colors duration-200"
           }
         >
@@ -62,7 +68,17 @@ function Navbar() {
 
         {token && (
           <button
-            className="border border-slate-300 px-4 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-all"
+            className="
+  px-4
+  py-2
+  rounded-xl
+  bg-slate-100
+  text-slate-700
+  font-medium
+  hover:bg-slate-200
+  transition-all
+  duration-200
+"
             onClick={handleLogout}
           >
             Logout
