@@ -2,32 +2,42 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../components/PrimaryButton";
-
+import { API_URL } from "../config";
 
 function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   function handleLogin() {
-    console.log("Button is clicked");
+    
 
     if (!email || !password) {
-      console.log("Please fill up the fields.");
+      setMessage("Please fill all fields");
       return;
     }
+
+    setMessage("");
     const adminData = {
       email,
       password,
     };
+    setLoading(true);
     axios
-      .post("http://localhost:3000/admin/signin", adminData)
+      .post(`${API_URL}/admin/signin`, adminData)
       .then((response) => {
         console.log(response.data);
 
         localStorage.setItem("adminToken", response.data.token);
+        setLoading(false);
         navigate("/admin/dashboard");
 
-        console.log("Token Saved");
+        
+      })
+      .catch((err) => {
+        setLoading(false);
+        setMessage(err.response?.data?.message || "Invalid email or password");
       });
   }
   return (
@@ -59,8 +69,13 @@ function AdminLogin() {
             type="password"
             placeholder="Enter password"
           />
-          
-          <PrimaryButton onClick={handleLogin}>Login</PrimaryButton>
+          {message && (
+            <p className="text-red-500 text-sm font-medium">{message}</p>
+          )}
+
+          <PrimaryButton onClick={handleLogin}>
+            {loading ? "Logging in..." : "Login"}
+          </PrimaryButton>
         </div>
       </div>
     </div>

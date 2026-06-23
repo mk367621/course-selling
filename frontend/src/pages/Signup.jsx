@@ -1,30 +1,36 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { API_URL } from "../config";
 import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../components/PrimaryButton";
-
 
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   function handleSignup() {
     if (!email || !password) {
-      console.log("Please fill all fields");
+      setMessage("Please fill all fields");
       return;
     }
 
+    setMessage("");
+    setLoading(true);
     axios
-      .post("http://localhost:3000/user/signup", {
+      .post(`${API_URL}/user/signup`, {
         email,
         password,
       })
       .then((response) => {
         setMessage(response.data.message);
+        setLoading(false);
         navigate("/login");
       })
       .catch((err) => {
+        setLoading(false);
         setMessage(err.response.data.message);
       });
   }
@@ -56,10 +62,13 @@ function Signup() {
           placeholder="Enter password"
           onChange={(e) => setPassword(e.target.value)}
         />
+        {message && (
+          <p className="text-red-500 text-sm font-medium">{message}</p>
+        )}
 
-        
-        <PrimaryButton onClick={handleSignup}>Create Account</PrimaryButton>
-        <p className="text-center text-sm text-slate-500">{message}</p>
+        <PrimaryButton onClick={handleSignup}>
+          {loading ? "Signing up..." : "Sign up"}
+        </PrimaryButton>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 function AdminCourses() {
   const [courses, setCourses] = useState([]);
@@ -10,7 +11,7 @@ function AdminCourses() {
     const token = localStorage.getItem("adminToken");
     axios
       .get(
-        "http://localhost:3000/admin/course/bulk",
+        `${API_URL}/admin/course/bulk`,
 
         {
           headers: {
@@ -29,7 +30,7 @@ function AdminCourses() {
   function handleDeleteCourse(courseId) {
     const token = localStorage.getItem("adminToken");
     axios
-      .delete(`http://localhost:3000/admin/course/${courseId}`, {
+      .delete(`${API_URL}/admin/course/${courseId}`, {
         headers: {
           authorization: token,
         },

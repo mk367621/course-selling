@@ -3,11 +3,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../components/PrimaryButton";
 import FormMessage from "../components/FormMessage";
+import { API_URL } from "../config";
 
 function CreateCourse() {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   function handleCreateCourse() {
     if (!title.trim() || !price) {
@@ -16,9 +18,10 @@ function CreateCourse() {
     }
     setMessage("");
     const token = localStorage.getItem("adminToken");
+    setLoading(true);
     axios
       .post(
-        "http://localhost:3000/admin/course",
+        `${API_URL}/admin/course`,
         {
           title,
           price,
@@ -31,9 +34,11 @@ function CreateCourse() {
       )
       .then((response) => {
         console.log(response.data);
+        setLoading(false);
         navigate("/admin/courses");
       })
       .catch((err) => {
+        setLoading(false);
         console.log(err.response.data);
       });
   }
@@ -72,7 +77,7 @@ function CreateCourse() {
         <FormMessage message={message} />
 
         <PrimaryButton onClick={handleCreateCourse}>
-          Create Course
+          {loading ? "Creating..." : "Create Course"}
         </PrimaryButton>
       </div>
     </div>

@@ -3,17 +3,21 @@ import PrimaryButton from "../components/PrimaryButton";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 function EditCourse() {
   const [title, setTitle] = useState("");
+  const [message, setMessage] = useState("");
   const [price, setPrice] = useState("");
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("adminToken");
+
     axios
-      .get(`http://localhost:3000/admin/course/${id}`, {
+      .get(`${API_URL}/admin/course/${id}`, {
         headers: {
           authorization: token,
         },
@@ -27,10 +31,17 @@ function EditCourse() {
   }, [id]);
 
   function handleUpdateCourse() {
+    if (!title.trim() || !price) {
+      setMessage("Please fill all fields");
+      return;
+    }
+
+    setMessage("");
     const token = localStorage.getItem("adminToken");
+    setLoading(true);
     axios
       .put(
-        `http://localhost:3000/admin/update-course/${id}`,
+        `${API_URL}/admin/update-course/${id}`,
         {
           title,
           price,
@@ -43,9 +54,11 @@ function EditCourse() {
       )
       .then((response) => {
         console.log(response.data);
+        setLoading(false);
         navigate("/admin/courses");
       })
       .catch((err) => {
+        setLoading(false);
         console.log(err.response.data);
       });
   }
@@ -80,9 +93,12 @@ function EditCourse() {
         />
 
         <div className="h-6"></div>
+        {message && (
+          <p className="text-red-500 text-sm font-medium mb-4">{message}</p>
+        )}
 
         <PrimaryButton onClick={handleUpdateCourse}>
-          Update Course
+          {loading ? "Updating..." : "Update Course"}
         </PrimaryButton>
       </div>
     </div>

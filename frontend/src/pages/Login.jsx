@@ -3,43 +3,49 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Toast from "../components/Toast";
 import PrimaryButton from "../components/PrimaryButton";
-
+import { API_URL } from "../config";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [toast, setToast] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const [toastType, setToastType] = useState("success");
   const navigate = useNavigate();
   function handleLogin() {
-    console.log("Button is clicked");
+    
 
     if (!email || !password) {
-      console.log("Please fill up the fields.");
+      setMessage("Please fill all fields");
       return;
     }
+
+    setMessage("");
     const userData = {
       email,
       password,
     };
+    setLoading(true);
     axios
-      .post("http://localhost:3000/user/signin", userData)
+      .post(`${API_URL}/user/signin`, userData)
       .then((response) => {
         console.log(response.data);
 
         localStorage.setItem("token", response.data.token);
         setToastType("success");
         setToast("Login successful");
-
+        setLoading(false);
         setTimeout(() => {
           navigate("/courses");
         }, 1000);
 
-        console.log("Token Saved");
+        
       })
-      .catch(() => {
-        setToastType("error");
-        setToast("Invalid email or password");
+      .catch((err) => {
+        console.log(err.response?.data);
+        setLoading(false);
+        setMessage(err.response?.data?.message || "Invalid email or password");
       });
   }
   useEffect(() => {
@@ -72,10 +78,13 @@ function Login() {
           type="password"
           placeholder="Enter password"
         />
+        {message && (
+          <p className="text-red-500 text-sm font-medium">{message}</p>
+        )}
 
-        
-
-        <PrimaryButton onClick={handleLogin}>Login</PrimaryButton>
+        <PrimaryButton onClick={handleLogin}>
+          {loading ? "Logging in..." : "Login"}
+        </PrimaryButton>
         {toast && <Toast message={toast} type={toastType} />}
       </div>
     </div>

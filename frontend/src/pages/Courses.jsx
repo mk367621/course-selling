@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import PrimaryButton from "../components/PrimaryButton";
+import { API_URL } from "../config";
 
 function Courses() {
   const [courses, setCourses] = useState([]);
@@ -12,7 +13,7 @@ function Courses() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/user/courses")
+      .get(`${API_URL}/user/courses`)
       .then((response) => {
         setCourses(response.data.courses);
         setLoading(false);
@@ -31,7 +32,7 @@ function Courses() {
     }
 
     axios
-      .get("http://localhost:3000/user/purchases", {
+      .get(`${API_URL}/user/purchases`, {
         headers: {
           authorization: token,
         },
@@ -54,7 +55,7 @@ function Courses() {
 
     axios
       .post(
-        `http://localhost:3000/user/purchase/${courseId}`,
+        `${API_URL}/user/purchase/${courseId}`,
         {},
         {
           headers: {

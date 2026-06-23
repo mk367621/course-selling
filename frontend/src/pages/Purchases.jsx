@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 function Purchases() {
   const [courses, setCourses] = useState([]);
@@ -12,7 +13,7 @@ function Purchases() {
       return;
     }
     axios
-      .get("http://localhost:3000/user/purchases", {
+      .get(`${API_URL}/user/purchases`, {
         headers: {
           authorization: token,
         },
