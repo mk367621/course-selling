@@ -105,7 +105,7 @@ function Courses() {
                 className="bg-white border border-slate-100 rounded-3xl p-7 shadow-sm hover:shadow-2xl hover:border-indigo-100 hover:-translate-y-2 transition-all duration-300"
                 key={course._id}
               >
-                <div className="group h-52 rounded-xl mb-5 overflow-hidden relative bg-gradient-to-br from-indigo-600 via-indigo-500 to-purple-600">
+                <div className="group h-52 rounded-xl mb-5 overflow-hidden relative bg-linear-to-br from-indigo-600 via-indigo-500 to-purple-600">
                   <div className="absolute inset-0 bg-black/10 group-hover:scale-110 transition-transform duration-500"></div>
 
                   <div className="relative h-full flex flex-col justify-end p-5">
